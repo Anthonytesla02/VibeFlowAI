@@ -14,3 +14,8 @@
 [x] 14. Push database schema (users, songs tables)
 [x] 15. Create codemagic.yaml configuration file
 [x] 16. Add step-by-step Codemagic APK build instructions to replit.md
+[x] 17. Fix codemagic.yaml validation errors
+[x] 18. Fix gradlew permission issue
+[x] 19. Create Vercel serverless API backend (/api/index.ts)
+[x] 20. Update frontend to use configurable backend URL
+[x] 21. Add Vercel deployment instructions to replit.md

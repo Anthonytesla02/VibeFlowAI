@@ -131,12 +131,61 @@ The `codemagic.yaml` file is configured to build APKs automatically. You can als
 
 ---
 
-## Vercel Deployment
-The app is configured for Vercel deployment:
+## Deploying Backend to Vercel (Free)
+
+The app includes a serverless API in the `/api` folder that can be deployed to Vercel for free.
+
+### Step-by-Step Vercel Backend Deployment
+
+#### Step 1: Create a Free PostgreSQL Database
+1. Go to [neon.tech](https://neon.tech) (free PostgreSQL)
+2. Sign up and create a new project
+3. Copy the connection string (DATABASE_URL)
+
+#### Step 2: Push Code to GitHub
+```bash
+git add .
+git commit -m "Add Vercel backend"
+git push
+```
+
+#### Step 3: Deploy to Vercel
+1. Go to [vercel.com](https://vercel.com) and sign up with GitHub
+2. Click "Add New Project"
+3. Import your "vibeflow-ai" repository
+4. Vercel will auto-detect the configuration
+
+#### Step 4: Add Environment Variables
+In Vercel project settings → Environment Variables, add:
+- `DATABASE_URL` - Your Neon PostgreSQL connection string
+- `SESSION_SECRET` - A random string (e.g., generate with `openssl rand -base64 32`)
+
+#### Step 5: Deploy
+1. Click "Deploy"
+2. Wait for deployment to complete
+3. Copy your Vercel URL (e.g., `https://vibeflow-ai.vercel.app`)
+
+#### Step 6: Update Mobile App Backend URL
+Before building your APK, update the backend URL in the code:
+1. Open `services/api.ts` and `contexts/AuthContext.tsx`
+2. Replace `https://your-vercel-app.vercel.app` with your actual Vercel URL
+3. Commit and push changes
+4. Rebuild APK on Codemagic
+
+### Initialize Database Tables
+After deployment, run the schema push to create tables:
+```bash
+npm run db:push
+```
+
+---
+
+## Vercel Frontend + Backend (Full Deployment)
+The app is configured for full Vercel deployment (both frontend and API):
 1. Push code to GitHub
 2. Connect the repo to Vercel
-3. Vercel auto-detects the Vite configuration
-4. Environment variables: Add `DATABASE_URL` and `GEMINI_API_KEY` in Vercel dashboard
+3. Vercel auto-detects the Vite configuration and API routes
+4. Add environment variables: `DATABASE_URL`, `SESSION_SECRET`
 
 ## GitHub Actions (Alternative to Codemagic)
 When you push code to GitHub, the APK can also be built via GitHub Actions:

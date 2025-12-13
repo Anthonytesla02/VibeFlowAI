@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { Capacitor } from '@capacitor/core';
 
 interface User {
   id: number;
@@ -17,15 +16,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const getApiBase = (): string => {
-  if (Capacitor.isNativePlatform()) {
-    const backendUrl = (import.meta as any).env?.VITE_BACKEND_URL || 'https://your-vercel-app.vercel.app';
-    return `${backendUrl}/api`;
-  }
-  return '/api';
-};
-
-const API_BASE = getApiBase();
+const API_BASE = '/api';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);

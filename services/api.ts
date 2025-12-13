@@ -1,14 +1,4 @@
-import { Capacitor } from '@capacitor/core';
-
-const getApiBase = (): string => {
-  if (Capacitor.isNativePlatform()) {
-    const backendUrl = (import.meta as any).env?.VITE_BACKEND_URL || 'https://your-vercel-app.vercel.app';
-    return `${backendUrl}/api`;
-  }
-  return '/api';
-};
-
-const API_BASE = getApiBase();
+const API_BASE = '/api';
 
 export interface SongData {
   id: string;

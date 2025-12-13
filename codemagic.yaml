@@ -24,7 +24,6 @@ workflows:
       - name: Build Android APK
         script: |
           cd android
-          chmod +x gradlew
           ./gradlew assembleDebug
           
       - name: Build Android Release APK (unsigned)
@@ -35,3 +34,11 @@ workflows:
     artifacts:
       - android/app/build/outputs/apk/debug/*.apk
       - android/app/build/outputs/apk/release/*.apk
+      
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
+        notify:
+          success: true
+          failure: true

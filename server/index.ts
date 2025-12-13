@@ -55,11 +55,6 @@ if (!fs.existsSync(audioDir)) {
 
 app.use("/audio", express.static(audioDir));
 
-const distPath = path.join(process.cwd(), "dist");
-if (fs.existsSync(distPath)) {
-  app.use(express.static(distPath));
-}
-
 app.post("/api/auth/signup", async (req, res) => {
   try {
     const { email, password, displayName } = req.body;
@@ -261,16 +256,7 @@ app.delete("/api/youtube/cookies", requireAuth, (req, res) => {
   }
 });
 
-if (fs.existsSync(distPath)) {
-  app.use((req, res, next) => {
-    if (req.path.startsWith("/api") || req.path.startsWith("/audio")) {
-      return next();
-    }
-    res.sendFile(path.join(distPath, "index.html"));
-  });
-}
-
-const PORT = process.env.PORT || (process.env.NODE_ENV === "production" ? 5000 : 3001);
-app.listen(Number(PORT), "0.0.0.0", () => {
+const PORT = 3001;
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on http://0.0.0.0:${PORT}`);
 });

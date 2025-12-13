@@ -1,4 +1,13 @@
-const API_BASE = '/api';
+import { Capacitor } from '@capacitor/core';
+
+const getApiBase = (): string => {
+  if (Capacitor.isNativePlatform()) {
+    return 'https://b22594ef-8575-4750-81a6-369eae04debd-00-2v0w0q7j2szy9.kirk.replit.dev/api';
+  }
+  return '/api';
+};
+
+const API_BASE = getApiBase();
 
 export interface SongData {
   id: string;

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { Capacitor } from '@capacitor/core';
 
 interface User {
   id: number;
@@ -16,7 +17,14 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const API_BASE = '/api';
+const getApiBase = (): string => {
+  if (Capacitor.isNativePlatform()) {
+    return 'https://b22594ef-8575-4750-81a6-369eae04debd-00-2v0w0q7j2szy9.kirk.replit.dev/api';
+  }
+  return '/api';
+};
+
+const API_BASE = getApiBase();
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);

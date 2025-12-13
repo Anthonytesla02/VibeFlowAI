@@ -10,5 +10,7 @@
 [x] 10. Delete unnecessary files (Android SDK, build artifacts, system packages)
 [x] 11. Create vercel.json for Vercel deployment
 [x] 12. Create GitHub Actions workflow for Android APK build
-[x] 13. Reinstalled npm packages after migration
-[x] 14. Verified workflow is running successfully
+[x] 13. Set up PostgreSQL production database
+[x] 14. Push database schema (users, songs tables)
+[x] 15. Create codemagic.yaml configuration file
+[x] 16. Add step-by-step Codemagic APK build instructions to replit.md

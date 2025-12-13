@@ -270,7 +270,7 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-const PORT = process.env.NODE_ENV === "production" ? 5000 : 3001;
-app.listen(PORT, "0.0.0.0", () => {
+const PORT = process.env.PORT || (process.env.NODE_ENV === "production" ? 5000 : 3001);
+app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`Server running on http://0.0.0.0:${PORT}`);
 });

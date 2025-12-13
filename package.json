@@ -1,0 +1,48 @@
+{
+  "name": "vibeflow-ai",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"tsx server/index.ts\" \"vite\"",
+    "dev:frontend": "vite",
+    "dev:server": "tsx server/index.ts",
+    "build": "vite build",
+    "preview": "vite preview",
+    "db:push": "drizzle-kit push",
+    "build:android": "npm run build && npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:sync": "npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@google/genai": "^1.33.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/connect-pg-simple": "^7.0.3",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
+    "bcryptjs": "^3.0.3",
+    "concurrently": "^9.2.1",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.5",
+    "drizzle-kit": "^0.31.8",
+    "drizzle-orm": "^0.45.1",
+    "esbuild": "^0.27.1",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2",
+    "lucide-react": "^0.560.0",
+    "pg": "^8.16.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tsx": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.2",
+    "@vitejs/plugin-react": "^5.1.2",
+    "typescript": "~5.8.2",
+    "vite": "^6.4.1"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">VibeFlow AI</string>
+    <string name="title_activity_main">VibeFlow AI</string>
+    <string name="package_name">com.vibeflow.app</string>
+    <string name="custom_url_scheme">com.vibeflow.app</string>
+</resources>

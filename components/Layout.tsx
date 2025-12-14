@@ -1,16 +1,15 @@
 import React from 'react';
-import { Home, Library, Disc, LogOut } from 'lucide-react';
+import { Home, Library, Disc } from 'lucide-react';
 import { useAudio } from '../contexts/AudioContext';
 
 interface LayoutProps {
   children: React.ReactNode;
   currentPage: string;
   onNavigate: (page: string) => void;
-  onLogout: () => void;
   userName: string;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigate, onLogout, userName }) => {
+export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigate, userName }) => {
   const { currentSong } = useAudio();
 
   const navItems = [
@@ -28,9 +27,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, currentPage, onNavigat
           </div>
           <span className="text-white text-sm font-medium truncate max-w-[120px]">{userName}</span>
         </div>
-        <button onClick={onLogout} className="text-gray-400 hover:text-white p-2 transition">
-          <LogOut size={20} />
-        </button>
+        <div className="text-green-400 text-sm font-semibold">VibeFlow AI</div>
       </header>
 
       <main className="flex-1 overflow-y-auto pb-24 relative">

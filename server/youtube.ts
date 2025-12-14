@@ -13,25 +13,22 @@ interface ExtractResult {
   audioPath: string;
 }
 
-const YTDLP_PATH = path.join(process.cwd(), "yt-dlp");
 const COOKIES_PATH = path.join(process.cwd(), "cookies.txt");
-
-function getYtDlpCommand(): string {
-  if (fs.existsSync(YTDLP_PATH)) {
-    return YTDLP_PATH;
-  }
-  return "yt-dlp";
-}
 
 function getCookiesArg(): string {
   if (fs.existsSync(COOKIES_PATH)) {
-    return `--cookies "${COOKIES_PATH}"`;
+    const content = fs.readFileSync(COOKIES_PATH, 'utf-8');
+    if (content.includes('\t') && content.includes('youtube.com')) {
+      return `--cookies "${COOKIES_PATH}"`;
+    }
   }
   return "";
 }
 
 export function hasCookies(): boolean {
-  return fs.existsSync(COOKIES_PATH);
+  if (!fs.existsSync(COOKIES_PATH)) return false;
+  const content = fs.readFileSync(COOKIES_PATH, 'utf-8');
+  return content.includes('\t') && content.includes('youtube.com');
 }
 
 export function saveCookies(content: string): void {
@@ -52,12 +49,11 @@ export async function extractAudio(url: string, userId: number): Promise<Extract
 
   const tempId = `${userId}_${Date.now()}`;
   const outputTemplate = path.join(audioDir, `${tempId}.%(ext)s`);
-  const ytdlp = getYtDlpCommand();
   const cookiesArg = getCookiesArg();
 
   try {
     const infoResult = await execAsync(
-      `${ytdlp} ${cookiesArg} --no-warnings --print "%(title)s|||%(uploader)s|||%(duration)s|||%(thumbnail)s" "${url}"`,
+      `yt-dlp ${cookiesArg} --no-warnings --print "%(title)s|||%(uploader)s|||%(duration)s|||%(thumbnail)s" "${url}"`,
       { timeout: 60000 }
     );
 
@@ -65,7 +61,7 @@ export async function extractAudio(url: string, userId: number): Promise<Extract
     const duration = parseInt(durationStr) || 0;
 
     await execAsync(
-      `${ytdlp} ${cookiesArg} -x --audio-format mp3 --audio-quality 0 -o "${outputTemplate}" "${url}"`,
+      `yt-dlp ${cookiesArg} -x --audio-format mp3 --audio-quality 0 -o "${outputTemplate}" "${url}"`,
       { timeout: 300000 }
     );
 
@@ -105,6 +101,7 @@ export async function extractAudio(url: string, userId: number): Promise<Extract
     };
   } catch (error: any) {
     console.error("yt-dlp error:", error.message);
+    console.error("stderr:", error.stderr);
     
     if (error.message?.includes("Sign in to confirm you're not a bot") || 
         error.message?.includes("confirm you're not a bot") ||

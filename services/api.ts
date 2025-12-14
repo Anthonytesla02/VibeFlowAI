@@ -16,7 +16,7 @@ export interface SongData {
 }
 
 export const fetchSongs = async (): Promise<SongData[]> => {
-  const res = await fetch(`${API_BASE}/songs`, { credentials: 'include' });
+  const res = await fetch(`${API_BASE}/songs`);
   if (!res.ok) throw new Error('Failed to fetch songs');
   return res.json();
 };
@@ -25,7 +25,6 @@ export const createSong = async (song: Partial<SongData>): Promise<SongData> => 
   const res = await fetch(`${API_BASE}/songs`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     body: JSON.stringify(song),
   });
   if (!res.ok) throw new Error('Failed to create song');
@@ -36,7 +35,6 @@ export const toggleFavorite = async (id: string, isFavorite: boolean): Promise<S
   const res = await fetch(`${API_BASE}/songs/${id}/favorite`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     body: JSON.stringify({ isFavorite }),
   });
   if (!res.ok) throw new Error('Failed to update favorite');
@@ -46,7 +44,6 @@ export const toggleFavorite = async (id: string, isFavorite: boolean): Promise<S
 export const deleteSong = async (id: string): Promise<void> => {
   const res = await fetch(`${API_BASE}/songs/${id}`, {
     method: 'DELETE',
-    credentials: 'include',
   });
   if (!res.ok) throw new Error('Failed to delete song');
 };
@@ -55,7 +52,6 @@ export const extractYoutubeAudio = async (url: string): Promise<SongData> => {
   const res = await fetch(`${API_BASE}/youtube/extract`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     body: JSON.stringify({ url }),
   });
   const data = await res.json();
@@ -64,7 +60,7 @@ export const extractYoutubeAudio = async (url: string): Promise<SongData> => {
 };
 
 export const checkYoutubeCookies = async (): Promise<{ hasCookies: boolean }> => {
-  const res = await fetch(`${API_BASE}/youtube/cookies`, { credentials: 'include' });
+  const res = await fetch(`${API_BASE}/youtube/cookies`);
   if (!res.ok) throw new Error('Failed to check cookies');
   return res.json();
 };
@@ -73,7 +69,6 @@ export const uploadYoutubeCookies = async (cookies: string): Promise<void> => {
   const res = await fetch(`${API_BASE}/youtube/cookies`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     body: JSON.stringify({ cookies }),
   });
   const data = await res.json();
@@ -83,7 +78,6 @@ export const uploadYoutubeCookies = async (cookies: string): Promise<void> => {
 export const deleteYoutubeCookies = async (): Promise<void> => {
   const res = await fetch(`${API_BASE}/youtube/cookies`, {
     method: 'DELETE',
-    credentials: 'include',
   });
   if (!res.ok) throw new Error('Failed to delete cookies');
 };

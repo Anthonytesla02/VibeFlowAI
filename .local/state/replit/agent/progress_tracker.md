@@ -14,3 +14,10 @@
 [x] 14. Push database schema (users, songs tables)
 [x] 15. Create codemagic.yaml configuration file
 [x] 16. Add step-by-step Codemagic APK build instructions to replit.md
+[x] 17. Remove authentication pages and logic (Login, Signup, AuthContext)
+[x] 18. Update App.tsx to skip authentication flow
+[x] 19. Update Layout.tsx to remove logout button
+[x] 20. Update server/index.ts to remove auth routes and use default user
+[x] 21. Update services/api.ts to remove credentials
+[x] 22. Fix YouTube extractor - removed corrupted cookies.txt and improved validation
+[x] 23. Created default guest user in database
